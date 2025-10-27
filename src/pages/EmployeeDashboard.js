@@ -40,7 +40,7 @@ const EmployeeDashboard = () => {
     fetchData();
     
     // Socket.io connection
-    socket = io('http://localhost:5000');
+    socket = io('https://multitech-backend.vercel.app');
     socket.emit('join', user._id);
 
     socket.on('newTask', (task) => {
@@ -73,8 +73,8 @@ const EmployeeDashboard = () => {
     setLoading(true);
     try {
       const [tasksRes, messagesRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/tasks'),
-        axios.get('http://localhost:5000/api/messages'),
+        axios.get('https://multitech-backend.vercel.app/api/tasks'),
+        axios.get('https://multitech-backend.vercel.app/api/messages'),
       ]);
 
       setTasks(tasksRes.data);
@@ -99,7 +99,7 @@ const EmployeeDashboard = () => {
       }
 
       await axios.post(
-        `http://localhost:5000/api/tasks/${selectedTask._id}/complete`,
+        `https://multitech-backend.vercel.app/api/tasks/${selectedTask._id}/complete`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' }
@@ -119,7 +119,7 @@ const EmployeeDashboard = () => {
 
   const handleUpdateStatus = async (taskId, status) => {
     try {
-      await axios.patch(`http://localhost:5000/api/tasks/${taskId}/status`, { status });
+      await axios.patch(`https://multitech-backend.vercel.app/api/tasks/${taskId}/status`, { status });
       fetchData();
       alert(`Task status updated to ${status}`);
     } catch (error) {
@@ -134,7 +134,7 @@ const EmployeeDashboard = () => {
     if (!selectedTask) return;
 
     try {
-      await axios.post('http://localhost:5000/api/messages', {
+      await axios.post('https://multitech-backend.vercel.app/api/messages', {
         receiver: selectedTask.sender._id,
         subject: `Re: ${replyMessage.subject}`,
         content: replyMessage.content,
@@ -153,7 +153,7 @@ const EmployeeDashboard = () => {
 
   const handleMarkAsRead = async (messageId) => {
     try {
-      await axios.patch(`http://localhost:5000/api/messages/${messageId}/read`);
+      await axios.patch(`https://multitech-backend.vercel.app/api/messages/${messageId}/read`);
       fetchData();
     } catch (error) {
       console.error('Error marking message as read:', error);
@@ -397,7 +397,7 @@ const EmployeeDashboard = () => {
                             {task.files.map((file, idx) => (
                               <a
                                 key={idx}
-                                href={`http://localhost:5000/${file.path}`}
+                                href={`https://multitech-backend.vercel.app/${file.path}`}
                                 download
                                 className="flex items-center space-x-3 px-4 py-3 bg-tech-blue/10 border border-tech-blue/30 rounded-lg text-sm text-tech-blue hover:bg-tech-blue/20 transition-all group"
                               >
@@ -423,7 +423,7 @@ const EmployeeDashboard = () => {
                             {task.completionFiles.map((file, idx) => (
                               <a
                                 key={idx}
-                                href={`http://localhost:5000/${file.path}`}
+                                href={`https://multitech-backend.vercel.app/${file.path}`}
                                 download
                                 className="flex items-center space-x-3 px-4 py-3 bg-green-500/20 border border-green-500/30 rounded-lg text-sm text-green-400 hover:bg-green-500/30 transition-all group"
                               >

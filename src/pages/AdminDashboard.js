@@ -50,7 +50,7 @@ const AdminDashboard = () => {
     fetchData();
     
     // Socket.io connection
-    socket = io('http://localhost:5000');
+    socket = io('https://multitech-backend.vercel.app');
     socket.emit('join', user._id);
 
     socket.on('taskUpdated', (task) => {
@@ -76,10 +76,10 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [statsRes, employeesRes, tasksRes, messagesRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/admin/stats'),
-        axios.get('http://localhost:5000/api/admin/employees'),
-        axios.get('http://localhost:5000/api/tasks'),
-        axios.get('http://localhost:5000/api/messages'),
+        axios.get('https://multitech-backend.vercel.app/api/admin/stats'),
+        axios.get('https://multitech-backend.vercel.app/api/admin/employees'),
+        axios.get('https://multitech-backend.vercel.app/api/tasks'),
+        axios.get('https://multitech-backend.vercel.app/api/messages'),
       ]);
 
       setStats(statsRes.data);
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
   const handleCreateEmployee = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/admin/employees', newEmployee);
+      await axios.post('https://multitech-backend.vercel.app/api/admin/employees', newEmployee);
       setShowEmployeeModal(false);
       setNewEmployee({ name: '', email: '', password: '' });
       fetchData();
@@ -115,7 +115,7 @@ const AdminDashboard = () => {
         formData.append('files', file);
       }
 
-      await axios.post('http://localhost:5000/api/tasks', formData, {
+      await axios.post('https://multitech-backend.vercel.app/api/tasks', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/messages', newMessage);
+      await axios.post('https://multitech-backend.vercel.app/api/messages', newMessage);
       setShowMessageModal(false);
       setNewMessage({ receiver: '', subject: '', content: '' });
       fetchData();
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
   const handleDeleteEmployee = async (id) => {
     if (window.confirm('Are you sure? This will delete all related tasks and messages.')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/employees/${id}`);
+        await axios.delete(`https://multitech-backend.vercel.app/api/admin/employees/${id}`);
         fetchData();
       } catch (error) {
         alert(error.response?.data?.message || 'Error deleting employee');
@@ -153,7 +153,7 @@ const AdminDashboard = () => {
   const handleDeleteTask = async (id) => {
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+        await axios.delete(`https://multitech-backend.vercel.app/api/tasks/${id}`);
         fetchData();
       } catch (error) {
         alert(error.response?.data?.message || 'Error deleting task');
@@ -415,7 +415,7 @@ const AdminDashboard = () => {
                           {task.files.map((file, idx) => (
                             <a
                               key={idx}
-                              href={`http://localhost:5000/${file.path}`}
+                              href={`https://multitech-backend.vercel.app/${file.path}`}
                               download
                               className="flex items-center space-x-2 px-3 py-1 bg-white/10 rounded-lg text-sm text-tech-blue hover:bg-white/20 transition"
                             >
@@ -434,7 +434,7 @@ const AdminDashboard = () => {
                           {task.completionFiles.map((file, idx) => (
                             <a
                               key={idx}
-                              href={`http://localhost:5000/${file.path}`}
+                              href={`https://multitech-backend.vercel.app/${file.path}`}
                               download
                               className="flex items-center space-x-2 px-3 py-1 bg-green-400/20 rounded-lg text-sm text-green-400 hover:bg-green-400/30 transition"
                             >
@@ -690,7 +690,7 @@ const AdminDashboard = () => {
               onSubmit={async (e) => {
                 e.preventDefault();
                 try {
-                  await axios.post('http://localhost:5000/api/auth/register', newUser);
+                  await axios.post('https://multitech-backend.vercel.app/api/auth/register', newUser);
                   alert('User registered successfully!');
                   setShowRegisterModal(false);
                   setNewUser({ name: '', email: '', password: '', role: 'Employee' });
