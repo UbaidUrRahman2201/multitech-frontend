@@ -507,21 +507,18 @@ const AdminDashboard = () => {
 
       <form onSubmit={handleCreateEmployee} className="space-y-4">
         {/* Role Selector */}
-        <div>
-          <label className="block text-gray-300 text-sm font-medium mb-2">
-            Select Role
-          </label>
-          <select
-            value={newEmployee.role}
-            onChange={(e) => setNewEmployee({ ...newEmployee, role: e.target.value })}
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-tech-blue"
-            required
-          >
-            <option value="">-- Choose Role --</option>
-            <option value="Employee">Employee</option>
-            <option value="Admin">Admin</option>
-          </select>
-        </div>
+       <div>
+  <label className="block text-gray-300 text-sm font-medium mb-2">Role</label>
+  <select
+    value={newEmployee.role}
+    onChange={(e) => setNewEmployee({ ...newEmployee, role: e.target.value })}
+    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-tech-blue"
+  >
+    <option value="Employee">Employee</option>
+    <option value="Admin">Admin</option>
+  </select>
+</div>
+
 
         {/* Name Field */}
         <div>
