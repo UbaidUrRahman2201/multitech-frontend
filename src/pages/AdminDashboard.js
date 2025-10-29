@@ -489,60 +489,87 @@ const AdminDashboard = () => {
         </main>
       </div>
 
-      {/* Employee Modal */}
-      {showEmployeeModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-tech-dark border border-white/10 rounded-2xl p-6 w-full max-w-md">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">Add Employee</h3>
-              <button
-                onClick={() => setShowEmployeeModal(false)}
-                className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <form onSubmit={handleCreateEmployee} className="space-y-4">
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Name</label>
-                <input
-                  type="text"
-                  value={newEmployee.name}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  value={newEmployee.email}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">Password</label>
-                <input
-                  type="password"
-                  value={newEmployee.password}
-                  onChange={(e) => setNewEmployee({ ...newEmployee, password: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-3 bg-gradient-to-r from-tech-blue to-tech-purple text-white font-semibold rounded-lg hover:shadow-lg transition"
-              >
-                Create Employee
-              </button>
-            </form>
-          </div>
+      {/* Employee/Admin Modal */}
+{showEmployeeModal && (
+  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div className="bg-tech-dark border border-white/10 rounded-2xl p-6 w-full max-w-md">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-2xl font-bold text-white">
+          Add {newEmployee.role === "Admin" ? "Admin" : "Employee"}
+        </h3>
+        <button
+          onClick={() => setShowEmployeeModal(false)}
+          className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <form onSubmit={handleCreateEmployee} className="space-y-4">
+        {/* Role Selector */}
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">
+            Select Role
+          </label>
+          <select
+            value={newEmployee.role}
+            onChange={(e) => setNewEmployee({ ...newEmployee, role: e.target.value })}
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-tech-blue"
+            required
+          >
+            <option value="">-- Choose Role --</option>
+            <option value="Employee">Employee</option>
+            <option value="Admin">Admin</option>
+          </select>
         </div>
-      )}
+
+        {/* Name Field */}
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">Name</label>
+          <input
+            type="text"
+            value={newEmployee.name}
+            onChange={(e) => setNewEmployee({ ...newEmployee, name: e.target.value })}
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
+            required
+          />
+        </div>
+
+        {/* Email Field */}
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">Email</label>
+          <input
+            type="email"
+            value={newEmployee.email}
+            onChange={(e) => setNewEmployee({ ...newEmployee, email: e.target.value })}
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
+            required
+          />
+        </div>
+
+        {/* Password Field */}
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">Password</label>
+          <input
+            type="password"
+            value={newEmployee.password}
+            onChange={(e) => setNewEmployee({ ...newEmployee, password: e.target.value })}
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tech-blue"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-3 bg-gradient-to-r from-tech-blue to-tech-purple text-white font-semibold rounded-lg hover:shadow-lg transition"
+        >
+          Create {newEmployee.role || "User"}
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
 
       {/* Task Modal */}
       {showTaskModal && (
